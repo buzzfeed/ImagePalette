@@ -23,7 +23,7 @@ public protocol PaletteGenerator {
 
 	This method will probably be called on a background thread.
 	*/
-	func generate(swatches: [PaletteSwatch])
+	func generate(_ swatches: [PaletteSwatch])
 
 	/** Return the most vibrant PaletteSwatch */
 	var vibrantSwatch: PaletteSwatch? { get }

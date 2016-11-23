@@ -20,11 +20,11 @@ private typealias VboxPriorityQueue = PriorityQueue<Vbox>
 
 internal final class ColorCutQuantizer {
 
-	private var colors = Array<Int64>()
-	private var colorPopulations = Dictionary<Int64, Int64>()
+	fileprivate var colors = Array<Int64>()
+	fileprivate var colorPopulations = Dictionary<Int64, Int64>()
 
 	/** list of quantized colors */
-	private(set) var quantizedColors = Array<PaletteSwatch>()
+	fileprivate(set) var quantizedColors = Array<PaletteSwatch>()
 
 	/**
 	Factory-method to generate a ColorCutQuantizer from a UIImage.
@@ -32,7 +32,7 @@ internal final class ColorCutQuantizer {
 	:param: image Image to extract the pixel data from
 	:param: maxColors The maximum number of colors that should be in the result palette.
 	*/
-	internal static func fromImage(image: UIImage, maxColors: Int) -> ColorCutQuantizer {
+	internal static func fromImage(_ image: UIImage, maxColors: Int) -> ColorCutQuantizer {
 		let pixels = image.pixels
 		return ColorCutQuantizer(colorHistogram: ColorHistogram(pixels: pixels), maxColors: maxColors)
 	}
@@ -41,7 +41,7 @@ internal final class ColorCutQuantizer {
 	:param: colorHistogram histogram representing an image's pixel data
 	:param maxColors The maximum number of colors that should be in the result palette.
 	*/
-	private init(colorHistogram: ColorHistogram, maxColors: Int) {
+	fileprivate init(colorHistogram: ColorHistogram, maxColors: Int) {
 		let rawColorCount = colorHistogram.numberOfColors
 		let rawColors = colorHistogram.colors
 		let rawColorCounts = colorHistogram.colorCounts
@@ -79,7 +79,7 @@ internal final class ColorCutQuantizer {
 		}
 	}
 
-	private func quantizePixels(maxColorIndex: Int, maxColors: Int) -> [PaletteSwatch] {
+	fileprivate func quantizePixels(_ maxColorIndex: Int, maxColors: Int) -> [PaletteSwatch] {
 		// Create the priority queue which is sorted by volume descending. This means we always
 		// split the largest box in the queue
 		var pq = PriorityQueue<Vbox>(ascending: false, startingValues: Array())
@@ -104,9 +104,9 @@ internal final class ColorCutQuantizer {
 	:param: queue Priority queue to poll for boxes
 	:param: maxSize Maximum amount of boxes to split
 	*/
-	private func splitBoxes(inout queue: VboxPriorityQueue, maxSize: Int) {
+	fileprivate func splitBoxes(_ queue: inout VboxPriorityQueue, maxSize: Int) {
 		while queue.count < maxSize {
-			if let vbox = queue.pop() where vbox.canSplit {
+			if let vbox = queue.pop(), vbox.canSplit {
 				// First split the box, and offer the result
 				queue.push(vbox.splitBox())
 				// Then offer the box back
@@ -118,13 +118,13 @@ internal final class ColorCutQuantizer {
 		}
 	}
 
-	private func generateAverageColors(vboxes: VboxPriorityQueue) -> [PaletteSwatch] {
+	fileprivate func generateAverageColors(_ vboxes: VboxPriorityQueue) -> [PaletteSwatch] {
 		var colors = Array<PaletteSwatch>()
 
 		for vbox in vboxes {
 			let color = vbox.averageColor
 			
-			if (!self.dynamicType.shouldIgnoreColor(color)) {
+			if (!type(of: self).shouldIgnoreColor(color)) {
 				// As we're averaging a color box, we can still get colors which we do not want, so
 				// we check again here
 				colors.append(color)
@@ -138,7 +138,7 @@ internal final class ColorCutQuantizer {
 	Modify the significant octet in a packed color int. Allows sorting based on the value of a
 	single color component.
 	*/
-	private func modifySignificantOctet(dimension: Int, lowerIndex: Int, upperIndex: Int) {
+	fileprivate func modifySignificantOctet(_ dimension: Int, lowerIndex: Int, upperIndex: Int) {
 		switch (dimension) {
 			case COMPONENT_RED:
 				// Already in RGB, no need to do anything
@@ -161,37 +161,37 @@ internal final class ColorCutQuantizer {
 		}
 	}
 
-	private func shouldIgnoreColor(color: Int64) -> Bool {
+	fileprivate func shouldIgnoreColor(_ color: Int64) -> Bool {
 		let hsl = HexColor.toHSL(color)
-		return self.dynamicType.shouldIgnoreColor(hsl)
+		return type(of: self).shouldIgnoreColor(hsl)
 	}
 
-	private static func shouldIgnoreColor(color: PaletteSwatch) -> Bool {
+	fileprivate static func shouldIgnoreColor(_ color: PaletteSwatch) -> Bool {
 		return self.shouldIgnoreColor(color.hsl)
 	}
 
-	private static func shouldIgnoreColor(hslColor: HSLColor) -> Bool {
+	fileprivate static func shouldIgnoreColor(_ hslColor: HSLColor) -> Bool {
 		return self.isWhite(hslColor) || self.isBlack(hslColor) || self.isNearRedILine(hslColor)
 	}
 
 	/**
 	:return: true if the color represents a color which is close to black.
 	*/
-	private static func isBlack(hslColor: HSLColor) -> Bool {
+	fileprivate static func isBlack(_ hslColor: HSLColor) -> Bool {
 		return hslColor.lightness <= BLACK_MAX_LIGHTNESS
 	}
 
 	/**
 	:return: true if the color represents a color which is close to white.
 	*/
-	private static func isWhite(hslColor: HSLColor) -> Bool {
+	fileprivate static func isWhite(_ hslColor: HSLColor) -> Bool {
 		return hslColor.lightness >= WHITE_MIN_LIGHTNESS
 	}
 
 	/**
 	:return: true if the color lies close to the red side of the I line.
 	*/
-	private static func isNearRedILine(hslColor: HSLColor) -> Bool {
+	fileprivate static func isNearRedILine(_ hslColor: HSLColor) -> Bool {
 		return hslColor.hue >= 10.0 && hslColor.hue <= 37.0 && hslColor.saturation <= 0.82
 	}
 
@@ -200,21 +200,21 @@ internal final class ColorCutQuantizer {
 /** Represents a tightly fitting box around a color space. */
 private class Vbox: Hashable {
 	// lower and upper index are inclusive
-	private let lowerIndex: Int
-	private var upperIndex: Int
+	fileprivate let lowerIndex: Int
+	fileprivate var upperIndex: Int
 
-	private var minRed = Int64(2)
-	private var maxRed = Int64(2)
+	fileprivate var minRed = Int64(2)
+	fileprivate var maxRed = Int64(2)
 
-	private var minGreen = Int64(0)
-	private var maxGreen = Int64(0)
+	fileprivate var minGreen = Int64(0)
+	fileprivate var maxGreen = Int64(0)
 
-	private var minBlue = Int64(2)
-	private var maxBlue = Int64(2)
+	fileprivate var minBlue = Int64(2)
+	fileprivate var maxBlue = Int64(2)
 
-	private let quantizer: ColorCutQuantizer
+	fileprivate let quantizer: ColorCutQuantizer
 
-	private static var ordinal = 0
+	fileprivate static var ordinal = 0
 
 	let hashValue = 1 + Vbox.ordinal
 
@@ -228,7 +228,10 @@ private class Vbox: Hashable {
 	}
 
 	var volume: Int {
-		return (self.maxRed - self.minRed + 1) * (self.maxGreen - self.minGreen + 1) * (self.maxBlue - self.minBlue + 1)
+        let red: Int = self.maxRed - self.minRed + 1
+        let green: Int = self.maxGreen - self.minGreen + 1
+        let blue: Int = self.maxBlue - self.minBlue + 1
+		return red * green * blue
 	}
 
 	var canSplit: Bool {
@@ -321,18 +324,18 @@ private class Vbox: Hashable {
 		// Sort the colors in this box based on the longest color dimension.
 
 		var sorted = self.quantizer.colors[self.lowerIndex...self.upperIndex]
-		sorted.sortInPlace()
+		sorted.sort()
 
 		if longestDimension == COMPONENT_RED {
-			sorted.sortInPlace() {
+			sorted.sort() {
 				return HexColor.red($0) < HexColor.red($1)
 			}
 		} else if longestDimension == COMPONENT_GREEN {
-			sorted.sortInPlace() {
+			sorted.sort() {
 				return HexColor.green($0) < HexColor.green($1)
 			}
 		} else  {
-			sorted.sortInPlace() {
+			sorted.sort() {
 				return HexColor.blue($0) < HexColor.blue($1)
 			}
 		}
@@ -389,7 +392,7 @@ private class Vbox: Hashable {
 	/**
 	* @return the midpoint of this box in the given {@code dimension}
 	*/
-	func midPoint(dimension: Int) -> Int64 {
+	func midPoint(_ dimension: Int) -> Int64 {
 		switch (dimension) {
 			case COMPONENT_GREEN:
 				return (self.minGreen + self.maxGreen) / Int64(2)

@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 public final class PaletteConfiguration {
-	private static let DEFAULT_CALCULATE_NUMBER_COLORS = 16
-	private static let DEFAULT_RESIZE_BITMAP_MAX_DIMENSION = CGFloat(192)
+	fileprivate static let DEFAULT_CALCULATE_NUMBER_COLORS = 16
+	fileprivate static let DEFAULT_RESIZE_BITMAP_MAX_DIMENSION = CGFloat(192)
 
-	private let bitmap: UIImage?
-	private let swatches: [PaletteSwatch]?
+	fileprivate let bitmap: UIImage?
+	fileprivate let swatches: [PaletteSwatch]?
 
 	/**
 	The maximum number of colors to use in the quantization step when using an image

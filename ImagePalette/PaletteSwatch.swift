@@ -10,24 +10,24 @@ import Foundation
 import UIKit
 
 /** Represents a color swatch generated from an image's palette. */
-public class PaletteSwatch {
-	private static let MIN_CONTRAST_TITLE_TEXT = CGFloat(3.0)
-	private static let MIN_CONTRAST_BODY_TEXT = CGFloat(4.5)
+open class PaletteSwatch {
+	fileprivate static let MIN_CONTRAST_TITLE_TEXT = CGFloat(3.0)
+	fileprivate static let MIN_CONTRAST_BODY_TEXT = CGFloat(4.5)
 
-	private let rgb: RGBColor
-	private let hex: Int64
+	fileprivate let rgb: RGBColor
+	fileprivate let hex: Int64
 
 	/** This swatch's color */
-	public let color: UIColor
+	open let color: UIColor
 
 	/** The number of pixels represented by this swatch */
-	public let population: Int64
+	open let population: Int64
 
-	private var generatedTextColors: Bool = false
-	private var _titleTextColor: UIColor?
-	private var _bodyTextColor: UIColor?
+	fileprivate var generatedTextColors: Bool = false
+	fileprivate var _titleTextColor: UIColor?
+	fileprivate var _bodyTextColor: UIColor?
 
-	private var _hsl: HSLColor?
+	fileprivate var _hsl: HSLColor?
 
 	public convenience init(color: UIColor, population: Int64) {
 		self.init(rgbColor: RGBColor(color: color), population: population)
@@ -61,7 +61,7 @@ public class PaletteSwatch {
 	* An appropriate color to use for any 'title' text which is displayed over this
 	* Swatch's color. This color is guaranteed to have sufficient contrast.
 	*/
-	public var titleTextColor: UIColor? {
+	open var titleTextColor: UIColor? {
 		self.ensureTextColorsGenerated()
 		return self._titleTextColor
 	}
@@ -70,16 +70,16 @@ public class PaletteSwatch {
 	* An appropriate color to use for any 'body' text which is displayed over this
 	* Swatch's color. This color is guaranteed to have sufficient contrast.
 	*/
-	public var bodyTextColor: UIColor? {
+	open var bodyTextColor: UIColor? {
 		self.ensureTextColorsGenerated()
 		return self._bodyTextColor
 	}
 
-	private func ensureTextColorsGenerated() {
+	fileprivate func ensureTextColorsGenerated() {
 		if (!self.generatedTextColors) {
 			// First check white, as most colors will be dark
-			let lightBodyAlpha = HexColor.calculateMinimumAlpha(HexColor.WHITE, background: hex, minContrastRatio: self.dynamicType.MIN_CONTRAST_BODY_TEXT)
-			let lightTitleAlpha = HexColor.calculateMinimumAlpha(HexColor.WHITE, background: hex, minContrastRatio: self.dynamicType.MIN_CONTRAST_TITLE_TEXT)
+			let lightBodyAlpha = HexColor.calculateMinimumAlpha(HexColor.WHITE, background: hex, minContrastRatio: type(of: self).MIN_CONTRAST_BODY_TEXT)
+			let lightTitleAlpha = HexColor.calculateMinimumAlpha(HexColor.WHITE, background: hex, minContrastRatio: type(of: self).MIN_CONTRAST_TITLE_TEXT)
 
 			if let lightBodyAlpha = lightBodyAlpha, let lightTitleAlpha = lightTitleAlpha {
 				// If we found valid light values, use them and return
@@ -90,8 +90,8 @@ public class PaletteSwatch {
 				return
 			}
 
-			let darkBodyAlpha = HexColor.calculateMinimumAlpha(HexColor.BLACK, background: hex, minContrastRatio: self.dynamicType.MIN_CONTRAST_BODY_TEXT)
-			let darkTitleAlpha = HexColor.calculateMinimumAlpha(HexColor.BLACK, background: hex, minContrastRatio: self.dynamicType.MIN_CONTRAST_TITLE_TEXT)
+			let darkBodyAlpha = HexColor.calculateMinimumAlpha(HexColor.BLACK, background: hex, minContrastRatio: type(of: self).MIN_CONTRAST_BODY_TEXT)
+			let darkTitleAlpha = HexColor.calculateMinimumAlpha(HexColor.BLACK, background: hex, minContrastRatio: type(of: self).MIN_CONTRAST_TITLE_TEXT)
 
 			if let darkBodyAlpha = darkBodyAlpha, let darkTitleAlpha = darkTitleAlpha {
 				// If we found valid dark values, use them and return
@@ -125,7 +125,7 @@ public class PaletteSwatch {
 extension PaletteSwatch: CustomDebugStringConvertible {
 
 	public var debugDescription: String {
-		var description = "<\(self.dynamicType) 0x\(self.hashValue)"
+		var description = "<\(type(of: self)) 0x\(self.hashValue)"
 		description += "; color = \(self.color)"
 		description += "; hsl = \(self._hsl)"
 		description += "; population = \(self.population)"

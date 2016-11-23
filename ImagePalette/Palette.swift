@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-private func createQueue() -> dispatch_queue_t {
-	let queue = dispatch_queue_create("palette.generator", DISPATCH_QUEUE_CONCURRENT)
-	dispatch_set_target_queue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), queue)
+private func createQueue() -> DispatchQueue {
+	let queue = DispatchQueue(label: "palette.generator", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent)
 	return queue
 }
 
@@ -20,9 +19,9 @@ public final class Palette {
 	
 	/** All of the swatches which make up the palette */
 	public let swatches: [PaletteSwatch]
-	private let generator: PaletteGenerator
+	fileprivate let generator: PaletteGenerator
 
-	private init(swatches: [PaletteSwatch], generator: PaletteGenerator) {
+	fileprivate init(swatches: [PaletteSwatch], generator: PaletteGenerator) {
 		self.swatches = swatches
 		self.generator = generator
 	}
@@ -35,16 +34,16 @@ public final class Palette {
 		self.init(swatches: swatches, generator: generator)
 	}
 
-	public static func generateWithConfiguration(configuration: PaletteConfiguration, completion: (Palette) -> Void) {
+	public static func generateWithConfiguration(_ configuration: PaletteConfiguration, completion: @escaping (Palette) -> Void) {
 		self.generateWithConfiguration(configuration, queue: self.internalQueue, completion: completion)
 	}
 
-	public static func generateWithConfiguration(configuration: PaletteConfiguration, queue: dispatch_queue_t, completion: (Palette) -> Void) {
-		dispatch_async(queue) {
+	public static func generateWithConfiguration(_ configuration: PaletteConfiguration, queue: DispatchQueue, completion: @escaping (Palette) -> Void) {
+		queue.async {
 			let (swatches, generator) = configuration.generate()
 			let palette = self.init(swatches: swatches, generator: generator)
 
-			dispatch_async(dispatch_get_main_queue()) {
+			DispatchQueue.main.async {
 				completion(palette)
 			}
 		}
@@ -85,7 +84,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func vibrantColor(defaultColor: UIColor) -> UIColor {
+	public func vibrantColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.vibrantSwatch {
 			return swatch.color
 		} else {
@@ -98,7 +97,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func lightVibrantColor(defaultColor: UIColor) -> UIColor {
+	public func lightVibrantColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.lightVibrantSwatch {
 			return swatch.color
 		} else {
@@ -111,7 +110,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func darkVibrantColor(defaultColor: UIColor) -> UIColor {
+	public func darkVibrantColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.darkVibrantSwatch {
 			return swatch.color
 		} else {
@@ -124,7 +123,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func mutedColor(defaultColor: UIColor) -> UIColor {
+	public func mutedColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.mutedSwatch {
 			return swatch.color
 		} else {
@@ -137,7 +136,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func lightMutedColor(defaultColor: UIColor) -> UIColor {
+	public func lightMutedColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.lightMutedSwatch {
 			return swatch.color
 		} else {
@@ -150,7 +149,7 @@ public final class Palette {
 
 	:param: defaultColor value to return if the swatch isn't available
 	*/
-	public func darkMutedColor(defaultColor: UIColor) -> UIColor {
+	public func darkMutedColor(_ defaultColor: UIColor) -> UIColor {
 		if let swatch = self.darkMutedSwatch {
 			return swatch.color
 		} else {

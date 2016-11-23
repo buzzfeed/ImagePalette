@@ -15,7 +15,7 @@ internal class HSLColor {
 	final let lightness: CGFloat
 	final let alpha: CGFloat
 
-	private var _rgb: RGBColor?
+	fileprivate var _rgb: RGBColor?
 
 	init(hue: CGFloat, saturation: CGFloat, lightness: CGFloat, alpha: CGFloat) {
 		self.hue = hue
@@ -34,7 +34,7 @@ internal class HSLColor {
 		} else {
 			let c = (1.0 - abs(2 * self.lightness - 1.0)) * self.saturation
 			let m = self.lightness - 0.5 * c
-			let x = c * (1.0 - abs((self.hue / 60.0 % 2.0) - 1.0))
+			let x = c * (1.0 - abs(((self.hue / 60.0).truncatingRemainder(dividingBy: 2.0)) - 1.0))
 
 			let hueSegment = Int(self.hue / 60.0)
 
@@ -81,7 +81,7 @@ internal class HSLColor {
 		}
 	}
 
-	internal func colorWithLightnessComponent(lightness: CGFloat) -> HSLColor {
+	internal func colorWithLightnessComponent(_ lightness: CGFloat) -> HSLColor {
 		return HSLColor(hue: self.hue, saturation: self.saturation, lightness: self.lightness, alpha: self.alpha)
 	}
 

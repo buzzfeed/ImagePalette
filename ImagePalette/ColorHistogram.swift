@@ -12,22 +12,22 @@ import UIKit
 /**
 Class which provides a histogram for RGB values.
 */
-public class ColorHistogram {
+open class ColorHistogram {
 
 	/**
 	An array containing all of the distinct colors in the image.
 	*/
-	private(set) public var colors = Array<Int64>()
+	fileprivate(set) open var colors = Array<Int64>()
 
 	/**
 	An array containing the frequency of a distinct colors within the image.
 	*/
-	private(set) public var colorCounts = Array<Int64>()
+	fileprivate(set) open var colorCounts = Array<Int64>()
 
 	/**
 	Number of distinct colors in the image.
 	*/
-	private(set) public var numberOfColors: Int
+	fileprivate(set) open var numberOfColors: Int
 
 	/**
 	A new ColorHistogram instance.
@@ -37,16 +37,16 @@ public class ColorHistogram {
 	public init(pixels: [Int64]) {
         var newPixels = pixels
 		// Sort the pixels to enable counting below
-		newPixels.sortInPlace()
+		newPixels.sort()
 
 		// Count number of distinct colors
-		self.numberOfColors = self.dynamicType.countDistinctColors(newPixels)
+		self.numberOfColors = type(of: self).countDistinctColors(newPixels)
 
 		// Finally count the frequency of each color
 		self.countFrequencies(newPixels)
 	}
 
-	private static func countDistinctColors(pixels: [Int64]) -> Int {
+	fileprivate static func countDistinctColors(_ pixels: [Int64]) -> Int {
 		if pixels.count < 2 {
 			// If we have less than 2 pixels we can stop here
 			return pixels.count
@@ -68,7 +68,7 @@ public class ColorHistogram {
 		return colorCount
 	}
 
-	private func countFrequencies(pixels: [Int64]) {
+	fileprivate func countFrequencies(_ pixels: [Int64]) {
 		if pixels.count == 0 {
 			return
 		}

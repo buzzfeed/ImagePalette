@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB02E6ED1CA4320D00803AED /* ImagePalette.h in Headers */ = {isa = PBXBuildFile; fileRef = DB02E6EC1CA4320D00803AED /* ImagePalette.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DB02E6F41CA4320D00803AED /* ImagePalette.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB02E6E91CA4320D00803AED /* ImagePalette.framework */; };
-		DB02E6F91CA4320D00803AED /* ImagePaletteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02E6F81CA4320D00803AED /* ImagePaletteTests.swift */; };
 		DB02E70F1CA4325B00803AED /* ColorCutQuantizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02E7031CA4325B00803AED /* ColorCutQuantizer.swift */; };
 		DB02E7101CA4325B00803AED /* ColorHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02E7041CA4325B00803AED /* ColorHistogram.swift */; };
 		DB02E7111CA4325B00803AED /* DefaultPaletteGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02E7051CA4325B00803AED /* DefaultPaletteGenerator.swift */; };
@@ -24,23 +22,10 @@
 		DB02E71A1CA4325B00803AED /* UIImage+PaletteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02E70E1CA4325B00803AED /* UIImage+PaletteExtension.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		DB02E6F51CA4320D00803AED /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB02E6E01CA4320D00803AED /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DB02E6E81CA4320D00803AED;
-			remoteInfo = ImagePalette;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		DB02E6E91CA4320D00803AED /* ImagePalette.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImagePalette.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB02E6EC1CA4320D00803AED /* ImagePalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePalette.h; sourceTree = "<group>"; };
 		DB02E6EE1CA4320D00803AED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB02E6F31CA4320D00803AED /* ImagePaletteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagePaletteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB02E6F81CA4320D00803AED /* ImagePaletteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePaletteTests.swift; sourceTree = "<group>"; };
-		DB02E6FA1CA4320D00803AED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB02E7031CA4325B00803AED /* ColorCutQuantizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCutQuantizer.swift; sourceTree = "<group>"; };
 		DB02E7041CA4325B00803AED /* ColorHistogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorHistogram.swift; sourceTree = "<group>"; };
 		DB02E7051CA4325B00803AED /* DefaultPaletteGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPaletteGenerator.swift; sourceTree = "<group>"; };
@@ -63,14 +48,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DB02E6F01CA4320D00803AED /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DB02E6F41CA4320D00803AED /* ImagePalette.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,7 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				DB02E6EB1CA4320D00803AED /* ImagePalette */,
-				DB02E6F71CA4320D00803AED /* ImagePaletteTests */,
 				DB02E6EA1CA4320D00803AED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				DB02E6E91CA4320D00803AED /* ImagePalette.framework */,
-				DB02E6F31CA4320D00803AED /* ImagePaletteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,15 +86,6 @@
 				DB02E6EE1CA4320D00803AED /* Info.plist */,
 			);
 			path = ImagePalette;
-			sourceTree = "<group>";
-		};
-		DB02E6F71CA4320D00803AED /* ImagePaletteTests */ = {
-			isa = PBXGroup;
-			children = (
-				DB02E6F81CA4320D00803AED /* ImagePaletteTests.swift */,
-				DB02E6FA1CA4320D00803AED /* Info.plist */,
-			);
-			path = ImagePaletteTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,24 +120,6 @@
 			productReference = DB02E6E91CA4320D00803AED /* ImagePalette.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DB02E6F21CA4320D00803AED /* ImagePaletteTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DB02E7001CA4320D00803AED /* Build configuration list for PBXNativeTarget "ImagePaletteTests" */;
-			buildPhases = (
-				DB02E6EF1CA4320D00803AED /* Sources */,
-				DB02E6F01CA4320D00803AED /* Frameworks */,
-				DB02E6F11CA4320D00803AED /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DB02E6F61CA4320D00803AED /* PBXTargetDependency */,
-			);
-			name = ImagePaletteTests;
-			productName = ImagePaletteTests;
-			productReference = DB02E6F31CA4320D00803AED /* ImagePaletteTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -179,16 +127,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Buzzfeed;
 				TargetAttributes = {
 					DB02E6E81CA4320D00803AED = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
-					};
-					DB02E6F21CA4320D00803AED = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -205,20 +149,12 @@
 			projectRoot = "";
 			targets = (
 				DB02E6E81CA4320D00803AED /* ImagePalette */,
-				DB02E6F21CA4320D00803AED /* ImagePaletteTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DB02E6E71CA4320D00803AED /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DB02E6F11CA4320D00803AED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -247,23 +183,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DB02E6EF1CA4320D00803AED /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DB02E6F91CA4320D00803AED /* ImagePaletteTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DB02E6F61CA4320D00803AED /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DB02E6E81CA4320D00803AED /* ImagePalette */;
-			targetProxy = DB02E6F51CA4320D00803AED /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DB02E6FB1CA4320D00803AED /* Debug */ = {
@@ -280,8 +200,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -309,6 +231,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -329,8 +252,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -350,6 +275,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -361,6 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -373,7 +301,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -381,6 +309,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -392,29 +321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = twilson.buzzfeed.ImagePalette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = Release;
-		};
-		DB02E7011CA4320D00803AED /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = ImagePaletteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = twilson.buzzfeed.ImagePaletteTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
-			};
-			name = Debug;
-		};
-		DB02E7021CA4320D00803AED /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = ImagePaletteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = twilson.buzzfeed.ImagePaletteTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
@@ -435,15 +342,6 @@
 			buildConfigurations = (
 				DB02E6FE1CA4320D00803AED /* Debug */,
 				DB02E6FF1CA4320D00803AED /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DB02E7001CA4320D00803AED /* Build configuration list for PBXNativeTarget "ImagePaletteTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DB02E7011CA4320D00803AED /* Debug */,
-				DB02E7021CA4320D00803AED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

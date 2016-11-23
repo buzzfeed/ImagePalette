@@ -31,17 +31,17 @@ private let WEIGHT_POPULATION = CGFloat(1.0)
 
 internal class DefaultPaletteGenerator: PaletteGenerator {
 
-	private var swatches = Array<PaletteSwatch>()
-	private var highestPopulation = Int64(0)
+	fileprivate var swatches = Array<PaletteSwatch>()
+	fileprivate var highestPopulation = Int64(0)
 
-	private(set) var vibrantSwatch: PaletteSwatch?
-	private(set) var lightVibrantSwatch: PaletteSwatch?
-	private(set) var darkVibrantSwatch: PaletteSwatch?
-	private(set) var mutedSwatch: PaletteSwatch?
-	private(set) var lightMutedSwatch: PaletteSwatch?
-	private(set) var darkMutedSwatch: PaletteSwatch?
+	fileprivate(set) var vibrantSwatch: PaletteSwatch?
+	fileprivate(set) var lightVibrantSwatch: PaletteSwatch?
+	fileprivate(set) var darkVibrantSwatch: PaletteSwatch?
+	fileprivate(set) var mutedSwatch: PaletteSwatch?
+	fileprivate(set) var lightMutedSwatch: PaletteSwatch?
+	fileprivate(set) var darkMutedSwatch: PaletteSwatch?
 
-	func generate(swatches: [PaletteSwatch]) {
+	func generate(_ swatches: [PaletteSwatch]) {
 		self.swatches = swatches
 
 		self.highestPopulation = findMaxPopulation()
@@ -52,7 +52,7 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 		self.generateEmptySwatches()
 	}
 
-	private func generateVariationColors() {
+	fileprivate func generateVariationColors() {
 		self.vibrantSwatch = self.findColorVariation(TARGET_NORMAL_LUMA, minLuma: MIN_NORMAL_LUMA, maxLuma: MAX_NORMAL_LUMA, targetSaturation: TARGET_VIBRANT_SATURATION, minSaturation: MIN_VIBRANT_SATURATION, maxSaturation: 1.0)
 		self.lightVibrantSwatch = self.findColorVariation(TARGET_LIGHT_LUMA, minLuma: MIN_LIGHT_LUMA, maxLuma: 1.0, targetSaturation: TARGET_VIBRANT_SATURATION, minSaturation: MIN_VIBRANT_SATURATION, maxSaturation: 1.0)
 		self.darkVibrantSwatch = self.findColorVariation(TARGET_DARK_LUMA, minLuma: 0.0, maxLuma: MAX_DARK_LUMA, targetSaturation: TARGET_VIBRANT_SATURATION, minSaturation: MIN_VIBRANT_SATURATION, maxSaturation: 1.0)
@@ -62,7 +62,7 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 	}
 
 	/** Try and generate any missing swatches from the swatches we did find. */
-	private func generateEmptySwatches() {
+	fileprivate func generateEmptySwatches() {
 		if self.vibrantSwatch == nil {
 			// If we do not have a vibrant color...
 			if let swatch = self.darkVibrantSwatch {
@@ -81,7 +81,7 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 	}
 
 	/** Find the PaletteSwatch with the highest population value and return the population. */
-	private func findMaxPopulation() -> Int64 {
+	fileprivate func findMaxPopulation() -> Int64 {
 		var population = Int64(0)
 
 		for swatch in self.swatches {
@@ -91,7 +91,7 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 		return population
 	}
 
-	private func findColorVariation(targetLuma: CGFloat, minLuma: CGFloat, maxLuma: CGFloat, targetSaturation: CGFloat, minSaturation: CGFloat, maxSaturation: CGFloat) -> PaletteSwatch? {
+	fileprivate func findColorVariation(_ targetLuma: CGFloat, minLuma: CGFloat, maxLuma: CGFloat, targetSaturation: CGFloat, minSaturation: CGFloat, maxSaturation: CGFloat) -> PaletteSwatch? {
 		var max: PaletteSwatch? = nil
 		var maxValue = 0.0
 
@@ -100,7 +100,7 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 			let luma = swatch.hsl.lightness
 
 			if sat >= minSaturation && sat <= maxSaturation && luma >= minLuma && luma <= maxLuma && !isAlreadySelected(swatch) {
-				let value = Double(self.dynamicType.createComparisonValue(sat, targetSaturation: targetSaturation, luma: luma, targetLuma: targetLuma, population: swatch.population, maxPopulation: self.highestPopulation))
+				let value = Double(type(of: self).createComparisonValue(sat, targetSaturation: targetSaturation, luma: luma, targetLuma: targetLuma, population: swatch.population, maxPopulation: self.highestPopulation))
 
 				if max == nil || value > maxValue {
 					max = swatch
@@ -115,15 +115,15 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 	/**
 	:return: true if we have already selected PaletteSwatch
 	*/
-	private func isAlreadySelected(swatch: PaletteSwatch) -> Bool {
+	fileprivate func isAlreadySelected(_ swatch: PaletteSwatch) -> Bool {
 		return self.vibrantSwatch == swatch || self.darkVibrantSwatch == swatch || self.lightVibrantSwatch == swatch || self.mutedSwatch == swatch || self.darkMutedSwatch == swatch || self.lightMutedSwatch == swatch
 	}
 
-	private static func createComparisonValue(saturation: CGFloat, targetSaturation: CGFloat, luma: CGFloat, targetLuma: CGFloat, population: Int64, maxPopulation: Int64) -> CGFloat {
+	fileprivate static func createComparisonValue(_ saturation: CGFloat, targetSaturation: CGFloat, luma: CGFloat, targetLuma: CGFloat, population: Int64, maxPopulation: Int64) -> CGFloat {
 			return self.createComparisonValue(saturation, targetSaturation: targetSaturation, saturationWeight: WEIGHT_SATURATION, luma: luma, targetLuma: targetLuma, lumaWeight: WEIGHT_LUMA, population: population, maxPopulation: maxPopulation, populationWeight: WEIGHT_POPULATION)
 	}
 
-	private static func createComparisonValue(saturation: CGFloat, targetSaturation: CGFloat, saturationWeight: CGFloat, luma: CGFloat, targetLuma: CGFloat, lumaWeight: CGFloat, population: Int64, maxPopulation: Int64, populationWeight: CGFloat) -> CGFloat {
+	fileprivate static func createComparisonValue(_ saturation: CGFloat, targetSaturation: CGFloat, saturationWeight: CGFloat, luma: CGFloat, targetLuma: CGFloat, lumaWeight: CGFloat, population: Int64, maxPopulation: Int64, populationWeight: CGFloat) -> CGFloat {
 		return weightedMean([
 			invertDiff(saturation, targetValue: targetSaturation), saturationWeight,
 			invertDiff(luma, targetValue: targetLuma), lumaWeight,
@@ -138,11 +138,11 @@ internal class DefaultPaletteGenerator: PaletteGenerator {
 	:param: value the item's value
 	:param: targetValue the value which we desire
 	*/
-	private static func invertDiff(value: CGFloat, targetValue: CGFloat) -> CGFloat {
+	fileprivate static func invertDiff(_ value: CGFloat, targetValue: CGFloat) -> CGFloat {
 		return 1.0 - abs(value - targetValue)
 	}
 
-	private static func weightedMean(values: [CGFloat]) -> CGFloat {
+	fileprivate static func weightedMean(_ values: [CGFloat]) -> CGFloat {
 		var sum = CGFloat(0)
 		var sumWeight = CGFloat(0)
 
