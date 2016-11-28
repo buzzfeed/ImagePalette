@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24F843D01DEC8BF8005316F8 /* ImagePalette.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ImagePalette.playground; sourceTree = "<group>"; };
 		DB02E6E91CA4320D00803AED /* ImagePalette.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImagePalette.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB02E6EC1CA4320D00803AED /* ImagePalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePalette.h; sourceTree = "<group>"; };
 		DB02E6EE1CA4320D00803AED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +85,7 @@
 				DB02E70D1CA4325B00803AED /* SwiftPriorityQueue.swift */,
 				DB02E70E1CA4325B00803AED /* UIImage+PaletteExtension.swift */,
 				DB02E6EE1CA4320D00803AED /* Info.plist */,
+				24F843D01DEC8BF8005316F8 /* ImagePalette.playground */,
 			);
 			path = ImagePalette;
 			sourceTree = "<group>";
